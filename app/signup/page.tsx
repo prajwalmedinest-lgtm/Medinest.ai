@@ -72,7 +72,7 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="min-h-[calc(100vh-80px)] flex items-center justify-center py-12 px-4">
+    <main className="min-h-[calc(100vh-72px)] flex items-center justify-center py-12 px-4 relative">
       <div className="absolute inset-0 -z-10 dot-grid opacity-60 pointer-events-none" />
       <Container className="flex justify-center">
         <motion.div

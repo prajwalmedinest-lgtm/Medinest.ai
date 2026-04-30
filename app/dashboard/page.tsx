@@ -1,14 +1,14 @@
 'use client';
 
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Upload, CalendarCheck, BookOpen, TrendingUp, Users,
   UploadCloud, CheckCircle2, AlertCircle, FileText,
-  CalendarClock, Plus, ChevronDown, Pill, X, Check,
+  Plus, ChevronDown, Pill, X, Check,
   Mic, Square, Trash2, Trophy, Flame, Zap, Target,
-  Heart, Activity, Star, ChevronRight, BarChart2,
+  Heart, Activity, Star,
 } from 'lucide-react';
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -138,11 +138,23 @@ function ProgressRing({ pct, size = 56, stroke = 5, color = '#7c3aed' }: {
 
 /* Animated counter */
 function AnimCounter({ value }: { value: number }) {
-  const [display, setDisplay] = useState(0);
+  const [display, setDisplay] = useState(value);
+  const prev = useRef(value);
   useEffect(() => {
-    let start = 0; const end = value; if (end === 0) { setDisplay(0); return; }
-    const step = Math.ceil(end / 30);
-    const t = setInterval(() => { start = Math.min(start + step, end); setDisplay(start); if (start >= end) clearInterval(t); }, 30);
+    if (value === prev.current) return;
+    const start = prev.current;
+    prev.current = value;
+    const diff = value - start;
+    if (diff === 0) return;
+    let current = start;
+    const step = Math.max(1, Math.ceil(Math.abs(diff) / 20));
+    const t = setInterval(() => {
+      current = diff > 0
+        ? Math.min(current + step, value)
+        : Math.max(current - step, value);
+      setDisplay(current);
+      if (current === value) clearInterval(t);
+    }, 30);
     return () => clearInterval(t);
   }, [value]);
   return <>{display}</>;
@@ -154,13 +166,24 @@ function useMic() {
   const [secs, setSecs]           = useState(0);
   const [transcript, setTranscript] = useState('');
   const [interim, setInterim]     = useState('');
-  const recRef  = useRef<any>(null);
+  const recRef   = useRef<any>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const stop = () => {
+    recRef.current?.stop();
+    recRef.current = null;
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+    setRecording(false);
+    setInterim('');
+  };
 
   const start = () => {
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SR) return false;
-    const r = new SR(); r.continuous = true; r.interimResults = true; r.lang = 'en-US';
+    const r = new SR();
+    r.continuous = true;
+    r.interimResults = true;
+    r.lang = 'en-US';
     let fin = '';
     r.onresult = (e: any) => {
       let tmp = '';
@@ -168,20 +191,26 @@ function useMic() {
         if (e.results[i].isFinal) fin += e.results[i][0].transcript + ' ';
         else tmp += e.results[i][0].transcript;
       }
-      setTranscript(fin); setInterim(tmp);
+      setTranscript(fin);
+      setInterim(tmp);
     };
     r.onerror = () => stop();
-    recRef.current = r; r.start(); setRecording(true); setSecs(0);
+    r.onend = () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; } setRecording(false); setInterim(''); };
+    recRef.current = r;
+    r.start();
+    setRecording(true);
+    setSecs(0);
     timerRef.current = setInterval(() => setSecs(s => s + 1), 1000);
     return true;
   };
-  const stop = () => {
+
+  const reset = () => { stop(); setTranscript(''); setSecs(0); };
+
+  useEffect(() => () => {
     recRef.current?.stop();
     if (timerRef.current) clearInterval(timerRef.current);
-    setRecording(false); setInterim('');
-  };
-  const reset = () => { stop(); setTranscript(''); setSecs(0); };
-  useEffect(() => () => { recRef.current?.stop(); if (timerRef.current) clearInterval(timerRef.current); }, []);
+  }, []);
+
   const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
   return { recording, secs, transcript, interim, start, stop, reset, fmt };
 }
@@ -616,10 +645,20 @@ export default function Dashboard() {
     const n = newMemberName.trim();
     const idx = members.length;
     const c = MEMBER_COLORS[idx % MEMBER_COLORS.length];
-    const newM: MemberData = { id: uid(), name: n, initials: getInitials(n), color: c.color, bgColor: c.bgColor, uploads: [], plan: [], medications: [], alerts: [], trends: [] };
+    const newM: MemberData = {
+      id: uid(), name: n, initials: getInitials(n),
+      color: c.color, bgColor: c.bgColor,
+      uploads: [], plan: [], medications: [], alerts: [], trends: [],
+    };
     setMembers(p => [...p, newM]);
     setActiveMemberId(newM.id);
-    setNewMemberName(''); setShowAddMember(false);
+    // Add new member to all existing challenges with 0 progress
+    setChallenges(p => p.map(ch => ({
+      ...ch,
+      participants: { ...ch.participants, [newM.id]: 0 },
+    })));
+    setNewMemberName('');
+    setShowAddMember(false);
   };
 
   const updateMember = (updated: MemberData) => setMembers(p => p.map(m => m.id === updated.id ? updated : m));
@@ -640,7 +679,7 @@ export default function Dashboard() {
   const activeMember = members.find(m => m.id === activeMemberId) ?? null;
 
   return (
-    <main className="min-h-[calc(100vh-80px)] py-8">
+    <main className="min-h-[calc(100vh-72px)] py-8">
       <Container>
         {/* Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">

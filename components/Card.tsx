@@ -19,18 +19,10 @@ export default function Card({
   hover = true,
   ...rest
 }: CardProps) {
-  const base = cn(
-    'card',
-    hover && 'hover:-translate-y-0.5',
-    className,
-  );
+  const base = cn('card', hover && 'hover:-translate-y-0.5', className);
 
   if (!animate) {
-    return (
-      <div className={base} {...rest}>
-        {children}
-      </div>
-    );
+    return <div className={base} {...rest}>{children}</div>;
   }
 
   return (

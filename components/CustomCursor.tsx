@@ -12,6 +12,7 @@ export default function CustomCursor() {
   const mouse   = useRef({ x: -200, y: -200 });
   const ring    = useRef({ x: -200, y: -200 });
   const raf     = useRef<number | null>(null);
+  const hoveringRef = useRef(false);
 
   useEffect(() => {
     const check = () =>
@@ -23,10 +24,11 @@ export default function CustomCursor() {
       mouse.current = { x: e.clientX, y: e.clientY };
       if (!visible) setVisible(true);
       const t = e.target as HTMLElement;
-      setHovering(
+      const isHov =
         t.tagName === 'BUTTON' || t.tagName === 'A' ||
-        !!t.closest('button') || !!t.closest('a') || !!t.closest('[role="button"]'),
-      );
+        !!t.closest('button') || !!t.closest('a') || !!t.closest('[role="button"]');
+      hoveringRef.current = isHov;
+      setHovering(isHov);
     };
     const leave = () => setVisible(false);
     const enter = () => setVisible(true);
@@ -45,7 +47,8 @@ export default function CustomCursor() {
           `translate(${mouse.current.x - 4}px, ${mouse.current.y - 4}px)`;
       }
       if (ringRef.current) {
-        const s = hovering ? 48 : 36;
+        // Read hovering from ref to avoid restarting RAF on state change
+        const s = hoveringRef.current ? 48 : 36;
         ringRef.current.style.transform =
           `translate(${ring.current.x - s / 2}px, ${ring.current.y - s / 2}px)`;
         ringRef.current.style.width  = `${s}px`;
@@ -63,7 +66,7 @@ export default function CustomCursor() {
       if (raf.current) cancelAnimationFrame(raf.current);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hovering]);
+  }, []);
 
   if (isMobile) return null;
 
