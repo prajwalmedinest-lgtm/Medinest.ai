@@ -82,10 +82,10 @@ export default function CustomCursor() {
           position: 'fixed', top: 0, left: 0,
           borderRadius: '50%',
           border: hovering
-            ? '1.5px solid rgba(124,58,237,0.6)'
-            : '1.5px solid rgba(124,58,237,0.3)',
-          background: hovering ? 'rgba(124,58,237,0.06)' : 'transparent',
-          transition: 'border-color 0.2s, background 0.2s, width 0.2s, height 0.2s',
+            ? '2px solid rgba(155,135,245,0.6)'
+            : '2px solid rgba(155,135,245,0.35)',
+          background: hovering ? 'rgba(155,135,245,0.08)' : 'rgba(155,135,245,0.03)',
+          transition: 'border-color 0.3s, background 0.3s, width 0.25s, height 0.25s',
           willChange: 'transform, width, height',
         }}
       />
@@ -95,10 +95,10 @@ export default function CustomCursor() {
         style={{
           position: 'fixed', top: 0, left: 0,
           width: 8, height: 8, borderRadius: '50%',
-          background: 'linear-gradient(135deg, #7C3AED, #6366F1)',
-          boxShadow: '0 0 8px rgba(124,58,237,0.5)',
+          background: 'linear-gradient(135deg, #9B87F5, #8B92F8, #7DD3FC)',
+          boxShadow: '0 0 12px rgba(155,135,245,0.6), 0 0 24px rgba(155,135,245,0.3)',
           opacity: hovering ? 0 : 1,
-          transition: 'opacity 0.15s',
+          transition: 'opacity 0.2s',
           willChange: 'transform',
         }}
       />

@@ -74,17 +74,37 @@ export default function LandingPage() {
     <main className="overflow-hidden">
 
       {/* Hero */}
-      <section className="relative pt-16 pb-24 md:pt-24 md:pb-32">
+      <section className="relative pt-20 pb-28 md:pt-28 md:pb-36">
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
           <motion.div
-            animate={{ scale: [1, 1.06, 1], x: [0, 16, 0], y: [0, -12, 0] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -top-40 -left-20 w-[600px] h-[600px] rounded-full bg-violet-200/25 blur-[100px]"
+            animate={{ 
+              scale: [1, 1.08, 1], 
+              x: [0, 20, 0], 
+              y: [0, -15, 0],
+              opacity: [0.3, 0.4, 0.3]
+            }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute -top-40 -left-20 w-[700px] h-[700px] rounded-full bg-gradient-to-br from-violet-300/30 to-lavender-200/20 blur-[120px]"
           />
           <motion.div
-            animate={{ scale: [1, 1.08, 1], x: [0, -18, 0], y: [0, 16, 0] }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
-            className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-sky-200/20 blur-[90px]"
+            animate={{ 
+              scale: [1, 1.1, 1], 
+              x: [0, -20, 0], 
+              y: [0, 20, 0],
+              opacity: [0.25, 0.35, 0.25]
+            }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
+            className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-gradient-to-bl from-sky-300/25 to-teal-200/15 blur-[100px]"
+          />
+          <motion.div
+            animate={{ 
+              scale: [1, 1.06, 1], 
+              x: [0, 15, 0], 
+              y: [0, -10, 0],
+              opacity: [0.2, 0.3, 0.2]
+            }}
+            transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut', delay: 10 }}
+            className="absolute bottom-0 left-1/2 w-[550px] h-[550px] rounded-full bg-gradient-to-tr from-rose-300/20 to-peach-200/15 blur-[110px]"
           />
         </div>
 
@@ -99,7 +119,7 @@ export default function LandingPage() {
 
             <motion.h1
               {...fadeUp(0.08)}
-              className="text-[2.75rem] sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.06] mb-6"
+              className="text-[3rem] sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-7"
             >
               <span className="text-zinc-900">Your health.</span>
               <br />
@@ -108,7 +128,7 @@ export default function LandingPage() {
 
             <motion.p
               {...fadeUp(0.16)}
-              className="text-lg sm:text-xl text-zinc-500 max-w-2xl leading-relaxed mb-10"
+              className="text-lg sm:text-xl md:text-2xl text-zinc-500 max-w-2xl leading-relaxed mb-12"
             >
               MediNest.ai transforms scattered medical records into a unified,
               intelligent health story — organised, understood, and always ready
@@ -134,26 +154,32 @@ export default function LandingPage() {
 
           {/* Preview card */}
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.97 }}
+            initial={{ opacity: 0, y: 50, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.35 }}
-            className="mt-16 max-w-4xl mx-auto"
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.4 }}
+            className="mt-20 max-w-5xl mx-auto"
           >
-            <div className="card p-1.5 shadow-xl">
-              <div className="rounded-[calc(1.75rem-6px)] bg-gradient-to-br from-violet-50 via-white to-sky-50 p-8 min-h-[240px] flex items-center justify-center">
-                <div className="grid grid-cols-3 gap-4 w-full max-w-xl">
+            <div className="card p-2 shadow-xl glow">
+              <div className="rounded-[calc(2rem-8px)] bg-gradient-to-br from-violet-50/80 via-white/90 to-sky-50/80 backdrop-blur-sm p-10 min-h-[280px] flex items-center justify-center">
+                <div className="grid grid-cols-3 gap-5 w-full max-w-2xl">
                   {[
-                    { icon: Activity, label: 'Health Score', value: '94/100', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                    { icon: FileText, label: 'Records', value: '24 files', color: 'text-violet-600', bg: 'bg-violet-50' },
-                    { icon: Heart, label: 'Next Check-up', value: 'Oct 24', color: 'text-rose-600', bg: 'bg-rose-50' },
-                  ].map(({ icon: Icon, label, value, color, bg }) => (
-                    <div key={label} className="card p-4 text-center">
-                      <div className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center mx-auto mb-3`}>
-                        <Icon size={20} className={color} />
+                    { icon: Activity, label: 'Health Score', value: '94/100', color: 'text-emerald-600', bg: 'bg-gradient-to-br from-emerald-50 to-mint-50' },
+                    { icon: FileText, label: 'Records', value: '24 files', color: 'text-violet-600', bg: 'bg-gradient-to-br from-violet-50 to-lavender-50' },
+                    { icon: Heart, label: 'Next Check-up', value: 'Oct 24', color: 'text-rose-500', bg: 'bg-gradient-to-br from-rose-50 to-peach-50' },
+                  ].map(({ icon: Icon, label, value, color, bg }, idx) => (
+                    <motion.div 
+                      key={label} 
+                      className="card p-5 text-center hover:scale-105 transition-transform duration-300"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 + idx * 0.1 }}
+                    >
+                      <div className={`w-12 h-12 rounded-2xl ${bg} flex items-center justify-center mx-auto mb-3 shadow-sm`}>
+                        <Icon size={22} className={color} />
                       </div>
-                      <p className="text-xs text-zinc-400 mb-1">{label}</p>
-                      <p className="font-bold text-zinc-800 text-sm">{value}</p>
-                    </div>
+                      <p className="text-xs text-zinc-400 mb-1.5 font-medium">{label}</p>
+                      <p className="font-bold text-zinc-800 text-base">{value}</p>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -163,30 +189,30 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 md:py-28 border-t border-[#EDE9F8]/60">
+      <section id="features" className="py-28 md:py-32 border-t border-violet-100/40">
         <Container>
-          <div className="text-center mb-14">
-            <span className="badge mb-4 inline-block">Features</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 mt-3 mb-4 tracking-tight">
+          <div className="text-center mb-16">
+            <span className="badge mb-5 inline-block">Features</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-zinc-900 mt-4 mb-5 tracking-tight">
               Everything your health needs.
             </h2>
-            <p className="text-zinc-500 max-w-lg mx-auto text-sm">
+            <p className="text-zinc-500 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
               From a single report to your entire family's health — MediNest handles it all.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map(({ icon: Icon, color, ring, title, desc, tag }, i) => (
-              <Card key={title} delay={i * 0.06} className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-11 h-11 rounded-xl ${color} ring-4 ${ring} flex items-center justify-center`}>
-                    <Icon size={20} />
+              <Card key={title} delay={i * 0.08} className="p-7 group">
+                <div className="flex items-start justify-between mb-5">
+                  <div className={`w-12 h-12 rounded-2xl ${color} ring-4 ${ring} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon size={22} />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 bg-zinc-50 px-2 py-1 rounded-full">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 bg-zinc-50/80 px-2.5 py-1.5 rounded-full border border-zinc-100">
                     {tag}
                   </span>
                 </div>
-                <h3 className="font-bold text-zinc-900 mb-2 text-sm">{title}</h3>
+                <h3 className="font-bold text-zinc-900 mb-2.5 text-base">{title}</h3>
                 <p className="text-sm text-zinc-500 leading-relaxed">{desc}</p>
               </Card>
             ))}
@@ -195,25 +221,25 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section className="py-24 bg-white/50 backdrop-blur-sm border-y border-[#EDE9F8]/60">
+      <section className="py-28 bg-gradient-to-br from-white/60 via-violet-50/30 to-sky-50/30 backdrop-blur-sm border-y border-violet-100/40">
         <Container>
-          <div className="text-center mb-14">
-            <span className="badge mb-4 inline-block">How it works</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900 mt-3 tracking-tight">
+          <div className="text-center mb-16">
+            <span className="badge mb-5 inline-block">How it works</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-zinc-900 mt-4 tracking-tight">
               Up and running in minutes.
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-7 max-w-4xl mx-auto">
             {[
               { step: '01', title: 'Create your account', desc: 'Sign up in seconds. No credit card required.' },
               { step: '02', title: 'Upload your records', desc: 'Drag and drop any medical document. Organised automatically.' },
               { step: '03', title: 'Understand your health', desc: 'Get your AI Health Story, trend charts, and care plan.' },
             ].map(({ step, title, desc }, i) => (
-              <Card key={step} delay={i * 0.1} className="p-7 text-center">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-500 text-white font-black text-base flex items-center justify-center mx-auto mb-4 shadow-[0_4px_16px_rgba(124,58,237,0.3)]">
+              <Card key={step} delay={i * 0.12} className="p-8 text-center group">
+                <div className="w-14 h-14 rounded-3xl bg-gradient-to-br from-violet-500 via-indigo-500 to-sky-500 text-white font-black text-lg flex items-center justify-center mx-auto mb-5 shadow-[0_8px_24px_rgba(155,135,245,0.4)] group-hover:shadow-[0_12px_32px_rgba(155,135,245,0.5)] group-hover:scale-110 transition-all duration-300">
                   {step}
                 </div>
-                <h3 className="font-bold text-zinc-900 mb-2 text-sm">{title}</h3>
+                <h3 className="font-bold text-zinc-900 mb-3 text-base">{title}</h3>
                 <p className="text-sm text-zinc-500 leading-relaxed">{desc}</p>
               </Card>
             ))}
@@ -222,66 +248,66 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#EDE9F8]/60 py-14">
+      <footer className="border-t border-violet-100/40 py-16 bg-gradient-to-b from-transparent to-violet-50/20">
         <Container>
-          <div className="flex flex-col md:flex-row justify-between items-start gap-10">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-12">
             {/* Brand + contact */}
-            <div className="max-w-xs">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center">
-                  <span className="text-white text-xs font-black">M</span>
+            <div className="max-w-sm">
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center shadow-lg">
+                  <span className="text-white text-sm font-black">M</span>
                 </div>
-                <span className="font-bold text-zinc-900">
-                  MediNest<span className="text-violet-500">.ai</span>
+                <span className="font-bold text-zinc-900 text-lg">
+                  MediNest<span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500">.ai</span>
                 </span>
               </div>
-              <p className="text-sm text-zinc-500 leading-relaxed mb-5">
+              <p className="text-sm text-zinc-500 leading-relaxed mb-6">
                 AI-powered healthcare record management for individuals and families.
               </p>
 
               {/* Contact */}
               <a
                 href="mailto:prajwal.medinest@gmail.com"
-                className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-violet-600 transition-colors group mb-4"
+                className="inline-flex items-center gap-2.5 text-sm text-zinc-600 hover:text-violet-600 transition-colors group mb-5"
               >
-                <span className="w-8 h-8 rounded-lg border border-[#EDE9F8] bg-white flex items-center justify-center group-hover:border-violet-200 group-hover:bg-violet-50 transition-all">
-                  <Mail size={14} />
+                <span className="w-9 h-9 rounded-xl border border-violet-100 bg-white flex items-center justify-center group-hover:border-violet-300 group-hover:bg-violet-50 transition-all shadow-sm">
+                  <Mail size={16} />
                 </span>
                 prajwal.medinest@gmail.com
               </a>
 
               {/* Social */}
-              <div className="flex gap-2 mt-2">
+              <div className="flex gap-3 mt-3">
                 <a
                   href="https://www.instagram.com/medinest.ai?igsh=Z3hpZHU0c2VkbW50"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
-                  className="w-8 h-8 rounded-lg border border-[#EDE9F8] bg-white flex items-center justify-center text-zinc-400 hover:text-violet-600 hover:border-violet-200 hover:bg-violet-50 transition-all"
+                  className="w-9 h-9 rounded-xl border border-violet-100 bg-white flex items-center justify-center text-zinc-400 hover:text-violet-600 hover:border-violet-300 hover:bg-violet-50 transition-all shadow-sm"
                 >
-                  <Instagram size={14} />
+                  <Instagram size={16} />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/medinest-ai-38047b3a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
-                  className="w-8 h-8 rounded-lg border border-[#EDE9F8] bg-white flex items-center justify-center text-zinc-400 hover:text-violet-600 hover:border-violet-200 hover:bg-violet-50 transition-all"
+                  className="w-9 h-9 rounded-xl border border-violet-100 bg-white flex items-center justify-center text-zinc-400 hover:text-violet-600 hover:border-violet-300 hover:bg-violet-50 transition-all shadow-sm"
                 >
-                  <Linkedin size={14} />
+                  <Linkedin size={16} />
                 </a>
               </div>
             </div>
 
             {/* Nav links */}
-            <div className="grid grid-cols-2 gap-8 text-sm">
+            <div className="grid grid-cols-2 gap-10 text-sm">
               {[
                 { heading: 'Product', links: [{ label: 'Features', href: '#features' }, { label: 'Dashboard', href: '/dashboard' }, { label: 'Sign up', href: '/signup' }] },
                 { heading: 'Legal', links: [{ label: 'Privacy', href: '#' }, { label: 'Terms', href: '#' }] },
               ].map(({ heading, links }) => (
                 <div key={heading}>
-                  <p className="font-semibold text-zinc-800 mb-3">{heading}</p>
-                  <ul className="space-y-2">
+                  <p className="font-semibold text-zinc-800 mb-4">{heading}</p>
+                  <ul className="space-y-2.5">
                     {links.map(({ label, href }) => (
                       <li key={label}>
                         <Link href={href} className="text-zinc-500 hover:text-violet-600 transition-colors">
@@ -295,7 +321,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-[#EDE9F8]/60">
+          <div className="mt-12 pt-8 border-t border-violet-100/40">
             <p className="text-xs text-zinc-400">
               © 2026 MediNest.ai — Not for medical diagnosis. All rights reserved.
             </p>
