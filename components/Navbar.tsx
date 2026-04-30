@@ -24,19 +24,19 @@ export default function Navbar() {
       className="sticky top-0 z-50 w-full"
     >
       <div
-        className={`mx-3 mt-3 rounded-2xl transition-all duration-300 ${
+        className={`mx-4 mt-4 rounded-3xl transition-all duration-500 ${
           scrolled
-            ? 'glass shadow-[0_4px_24px_rgba(124,58,237,0.1)]'
-            : 'bg-white/60 backdrop-blur-xl border border-white/70'
+            ? 'glass shadow-[0_8px_32px_rgba(155,135,245,0.15)]'
+            : 'bg-white/50 backdrop-blur-2xl border border-white/60 shadow-sm'
         }`}
       >
-        <Container className="h-[60px] flex items-center justify-between">
+        <Container className="h-[68px] flex items-center justify-between">
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <Logo className="w-8 h-8" />
-            <span className="font-bold text-[17px] tracking-tight text-zinc-900 group-hover:text-violet-700 transition-colors">
+            <Logo className="w-9 h-9" />
+            <span className="font-bold text-[18px] tracking-tight text-zinc-900 group-hover:text-violet-600 transition-colors duration-300">
               MediNest
-              <span className="text-violet-500 font-black">.ai</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-indigo-500 font-black">.ai</span>
             </span>
           </Link>
 

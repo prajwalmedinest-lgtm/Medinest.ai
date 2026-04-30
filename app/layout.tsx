@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased selection:bg-violet-200/60 selection:text-violet-900">
+      <body className="font-sans antialiased selection:bg-violet-100/70 selection:text-violet-900">
         <CustomCursor />
         <Navbar />
         {children}
